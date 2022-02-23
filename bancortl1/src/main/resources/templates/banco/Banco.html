@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo9}"></title>
+</head>
+<body>
+<h3 th:text="${titulo}"></h3>
+<br>
+
+<table>
+   <thead>
+    <tr>  
+    <th> ID </th>
+    <th> Nombre</th>
+    <th> Ubicacion </th>
+    </tr>
+   </thead>
+   <tbody>
+   <p th:if="{bancos.esEmpsty()}">La lista de bancos esta vacia </p>
+   <tr th:each="banco: ${bancos}"></tr>
+   <tr th:each="banco: ${bancos}">
+       <td th:text="${banco.getId()}"></td>
+       <td th:text="${banco.Nombre()}"></td>
+       <td th:text="${banco.getUbicacion()}"></td>
+        
+   </tr>   
+   </tbody>
+   
+</table>
+</body>
+</html>

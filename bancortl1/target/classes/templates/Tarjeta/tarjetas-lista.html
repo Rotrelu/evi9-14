@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<body>
+<h3 th:text="${titulo}"></h3>
+<br>
+
+<table>
+   <thead>
+    <tr>  
+    <th> ID </th>
+    <th> Nombre</th>
+    <th> Numero de tarjeta </th>
+    </tr>
+   </thead>
+   <tbody>
+   <p th:if="{tarjeta.esEmpsty()}">No tienes tarjetas activas </p>
+   <tr th:each="tarjeta: ${tarjetas}"></tr>
+   <tr th:each="tarjeta: ${tarjetas}">
+       <td th:text="${tarjeta.getId()}"></td>
+       <td th:text="${tarjeta.getNombre()}"></td>
+       <td th:text="${tarjeta.getNumroTarjeta()}"></td>
+        
+   </tr>   
+   </tbody>
+   
+</table>
+</body>
+</html>
