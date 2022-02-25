@@ -7,7 +7,8 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import javax.validation.constraints.NotEmpty;
+import java.util.List;
+
 
 @Entity
 @Table ( name = "cuentas")
@@ -22,8 +23,6 @@ public class Cuenta implements Serializable {
  private Long id;
 
  @Column
- @NotEmpty
-
  private String nombre;
 
 @Column
@@ -39,9 +38,9 @@ private String numerotelefono;
 @DateTimeFormat(pattern = "yyyy-mm-dd")
 private Date diadecracion;
 
-    @JoinColumn(name = "Banco", referencedColumnName = "idBanco", nullable = false )
+    @JoinColumn(name = "banco", referencedColumnName = "id", nullable = false )
     @ManyToOne(optional = false,fetch = FetchType.LAZY)
-    private Cuenta Banco;
+    private Banco Banco;
 
 	public Long getId() {
 		return id;
@@ -83,16 +82,26 @@ private Date diadecracion;
 		this.diadecracion = diadecracion;
 	}
 
-	public Cuenta getBanco() {
+	public Banco getBanco() {
 		return Banco;
 	}
 
-	public void setBanco(Cuenta banco) {
+	public void setBanco(Banco banco) {
 		Banco = banco;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public List<Tarjeta> getTarjeas() {
+		
+		return null;
+	}
+
+	public void setTarjetas(List<Tarjeta> tarjetas) {
+		
+		
 	}
 
 

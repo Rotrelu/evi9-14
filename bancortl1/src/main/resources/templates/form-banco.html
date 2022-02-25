@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
+	rel="stylesheet" />
+</head>
+<body>
+
+	<h3 th:text="${titulo}"></h3>
+
+	<tbody>		
+		<div>
+			<form th:action="@{/form-banco}" th:object="${banco}" method="post">
+				<table>
+					<tr>
+						<td>ID </td>
+						<td><input type="text" th:field="*{id}" required></td>
+						<div class="msjAdvertencia" th:if="${#fields.hasErrors('Id')}"
+							th:errors="*{id}"></div>
+					</tr>
+					<tr>
+						<td>Nombre</td>
+						<td><input type="text" th:field="*{nombre}" required></td>
+						<div class="msjAdvertencia" th:if="${#fields.hasErrors('nombre')}"
+							th:errors="*{nombre}"></div>				
+				</table>
+
+				<br>
+				<input th:action="@{/guardar}" type="submit" value="Registrar banco" />
+			</form>
+		</div>
+	</tbody>
+	<br>
+	<a class="backButton" th:href="@{/}">Volver...</a>
+</body>
+</html>

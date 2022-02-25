@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
+<head>
 <meta charset="UTF-8" />
 <title>Banco Test Spring</title>
 <link href="../static/css/Layout.css" th:href="@{/css/Layout.css}" rel="stylesheet" />
-</head >
+	<H2>Prueba banco</H2>
+
+</head>
 <body>
-	
-	<header th:replace="layout/layout :: header"></header >
-	
-	<a th:href="@{/tarjetas-lista}">Lista de tarjetas</a>
+
+	<a th:href="@{/lista-tarjeta}">Lista de tarjetas</a>
 	<br>
 	<br>
-	<a th:href="@{/lista}">Lista de cuentas</a>
+	<a th:href="@{/lista-cuenta}">Lista de cuentas</a>
+	<br>
+	<br>
+	<a th:href="@{/lista-banco}">Lista de bancos</a>
 </body>
 </html>

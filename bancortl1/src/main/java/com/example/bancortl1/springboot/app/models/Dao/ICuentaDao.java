@@ -6,13 +6,13 @@ import com.example.bancortl1.springboot.app.models.entity.Cuenta;
 
 public interface ICuentaDao {
 	
-	public List<Cuenta> findAll();
+	List<Cuenta> findAll();
 	
-    public void save(Cuenta cliente);
+    void save(Cuenta cliente);
 	
-	public Cuenta findOne(Long id);
+	Cuenta findOne(Long id);
 	
-	public void delete(Long id);
+	void delete(Long id);
 	
 	
 

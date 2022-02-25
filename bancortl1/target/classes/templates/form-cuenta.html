@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
+	rel="stylesheet" />
+</head>
+<body>
+
+	<h3 th:text="${titulo}"></h3>
+	<br>
+
+	<tbody>
+		<div>
+			<form th:action="@{/form-cuenta}" th:object="${cuenta}" method="post">
+				<table>
+					<tr>
+						<td>Nombre de cliente</td>
+						<td><input type="text" th:field="*{nombre}"></td>
+						<div class="msjAdvertencia" th:if="${#fields.hasErrors('nombre')}"
+							th:errors="*{nombre}"></div>
+					</tr>
+					<tr>
+						<td>Saldo</td>
+						<td><input type="text" th:field="*{saldo}"></td>
+						<div class="msjAdvertencia" th:if="${#fields.hasErrors('saldo')}"
+							th:errors="*{saldo}"></div>
+					</tr>
+					<tr>
+						<td>Numero de telefono</td>
+						<td><input type="text" th:field="*{numerotelefono}" ></td>
+						<div class="msjAdvertencia"
+							th:if="${#fields.hasErrors('numerotelefono')}"
+							th:errors="*{numerotelefono}"></div>
+					</tr>
+					<tr>
+						<td>Fecha de actual (yyyy-MM-dd)</td>
+						<td><input type="date" th:field="*{diadecracion}"></td>
+					</tr>
+					<tr>
+						<td> Banco</td>
+						<td>
+							<select th:field="*{banco}">
+								<option th:each="cuenta : ${listaBancos}"
+										th:value="${cuenta.getId()}"
+										th:text="${cuenta.getId()+' Nombre: '+cuenta.getNombre()}"></option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<br>
+				<input type="submit" value="Registrar cuenta" />
+			</form>
+		</div>
+	</tbody>
+	<br>
+	<a th:href="@{/}">Volver...</a>
+</body>
+</html>

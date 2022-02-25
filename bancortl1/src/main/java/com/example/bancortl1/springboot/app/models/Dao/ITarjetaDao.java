@@ -7,14 +7,14 @@ import com.example.bancortl1.springboot.app.models.entity.Tarjeta;
 
 public interface ITarjetaDao {
 	
-    public List<Tarjeta> findAll();
+    List<Tarjeta> findAll();
 	
-    public void save(Tarjeta tarjeta);
+    void save(Tarjeta tarjeta);
 	
-	public Tarjeta findOne(Long id);
+	Tarjeta findOne(Long id);
 	
-	public void delete(Long id);
+	void delete(Long id);
 
-	public Tarjeta findOne(String numerotarjeta);
+	Tarjeta findOne(String numerotarjeta);
 
 }

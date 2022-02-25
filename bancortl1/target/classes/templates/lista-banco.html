@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<head>
+<title th:text="${titulo}"></title>
+<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
+          rel="stylesheet" />
+</head>
+<body>
+<H3 th:text="${titulo}"></H3>
+<a th:href="@{/form-banco}">Registrar banco</a>
+<br>
+
+<table>
+   <thead>
+    <tr>  
+    <th> ID </th>
+    <th> Nombre </th>
+    
+    </tr>
+   </thead>
+   <tbody>
+   <p th:if="${bancos.isEmpty()}">La lista de bancos esta vacia </p>
+   <tr th:each="banco: ${bancos}">
+       <td th:text="${banco.getId()}"></td>
+       <td th:text="${banco.getNombre()}"></td>
+       <td th:text="${'Nombre: '+banco.getNombre()+' ID: '+banco.getId()}"></td>
+       <td><a th:href="@{/form-banco/} + ${banco.getId()}" th:text="'Editar'"></a></td>
+       <td><a th:href="@{/eliminar/} + ${banco.getId()}" th:text="'Eliminar'" onclick="return confirm('¿Desea eliminar la tarjeta?');"></a></td>
+        
+   </tr>   
+   </tbody>
+   
+</table>
+</body>
+<br>
+<a th:href="@{/}">Inicio</a>
+</html>

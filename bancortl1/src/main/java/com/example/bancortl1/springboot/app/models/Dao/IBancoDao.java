@@ -6,12 +6,12 @@ import com.example.bancortl1.springboot.app.models.entity.Banco;
 
 public interface IBancoDao {
 	
-	public List<Banco> findAll();
+	List<Banco> findAll();
 	
-	 public void save(Banco banco);
+	 void save(Banco banco);
 		
-	 public Banco  findOne(Long id);
+	 Banco  findOne(Long id);
 		
-	 public void delete(Long id);
+	 void delete(Long id);
 
 }

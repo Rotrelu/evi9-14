@@ -12,13 +12,17 @@ import com.example.bancortl1.springboot.app.services.ICuentaService;
 public class CuentaPropertyEditor extends PropertyEditorSupport {
 
 	@Autowired
-	private ICuentaService cuentaService;
-	
+	private  ICuentaService cuentaService;
+
 	@Autowired
-	private ICuentaDao cuentaDao;
-	
-	
-	
+	private  ICuentaDao cuentaDao;
+
+	public CuentaPropertyEditor(ICuentaDao cuentaDao, ICuentaService cuentaService) {
+		this.cuentaDao = cuentaDao;
+		this.cuentaService = cuentaService;
+	}
+
+
 	@Override
 	public void setAsText(String idStr) throws IllegalArgumentException {
 		
@@ -26,6 +30,7 @@ public class CuentaPropertyEditor extends PropertyEditorSupport {
 			Long id = Long.parseLong(idStr);
 			this.setValue(cuentaService.getByID(id,cuentaDao.findAll()));
 		} catch (Exception e) {
+			System.out.println("hubo un error al asignar el objeto cuenta a la tarjeta");
 			
 		}
 	}

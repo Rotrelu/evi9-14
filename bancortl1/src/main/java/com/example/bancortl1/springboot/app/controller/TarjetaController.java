@@ -1,5 +1,6 @@
 package com.example.bancortl1.springboot.app.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.bancortl1.springboot.app.editors.CuentaPropertyEditor;
+import com.example.bancortl1.springboot.app.errors.DataBaseBancoException;
+import com.example.bancortl1.springboot.app.models.Dao.ICuentaDao;
 import com.example.bancortl1.springboot.app.models.Dao.ITarjetaDao;
 import com.example.bancortl1.springboot.app.models.entity.Cuenta;
 import com.example.bancortl1.springboot.app.models.entity.Tarjeta;
@@ -26,30 +29,38 @@ import com.example.bancortl1.springboot.app.models.entity.Tarjeta;
 @SessionAttributes("tarjeta")
 public class TarjetaController {
 	
-	@Autowired
-	private ITarjetaDao tarjetaDao;
+	private final ITarjetaDao tarjetaDao;
 	
-	@Autowired
-	private CuentaPropertyEditor cuentaEditor;
+	private final CuentaPropertyEditor cuentaEditor;
 	
+	private final ICuentaDao cuentaDao;
+
+	public TarjetaController(ITarjetaDao tarjetaDao, CuentaPropertyEditor cuentaEditor, ICuentaDao cuentaDao) {
+		this.tarjetaDao = tarjetaDao;
+		this.cuentaEditor = cuentaEditor;
+		this.cuentaDao = cuentaDao;
+	}
+
 	@InitBinder
 	public void InitBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Cuenta.class, "cuenta", cuentaEditor);
-		
-		
+				
 	}
 		
 	@RequestMapping(value = "/lista-tarjeta", method = RequestMethod.GET)
 	public String cuentaLista(Model model) {
 		model.addAttribute("titulo","lista de tarjetas");
 		model.addAttribute("tarjetas", tarjetaDao.findAll());				
-		return "lista-tarjeta";
+		return "lista-tarjetas";
 	}
 	
 	@RequestMapping(value = "/formtarjeta")
 	public String crear(Map<String, Object> model, Model modelList) {
 		Tarjeta tarjeta = new Tarjeta();
+		List<Cuenta> listaCuentas = cuentaDao.findAll();
 		model.put("tarjeta", tarjeta);
+		modelList.addAttribute("listaCuentas",listaCuentas);
+		model.put("titulo", "Llenar datos de tarjeta");		
 		return "formtarjeta";
 	}
 	
@@ -82,16 +93,29 @@ public class TarjetaController {
 		} else {
 			model.addAttribute("resul", false);
 	           }
-		model.addAttribute("titulo","Formulariop de tarjeta");
+		
+		Cuenta cuenta= cuentaDao.findOne(tarjeta.getCuenta().getId());
+		List<Tarjeta> tarjetas = cuenta.getTarjeas();
+		if(tarjetas.size()<2){
+			tarjetas.add(tarjeta);
+			cuenta.setTarjetas(tarjetas);							
+		}else {flash.addFlashAttribute("mensaje","La cuenta no puede tener mas de 2 tarjetas");
+		return "redirect:formtarjeta";
+		}
+		
+		model.addAttribute("titulo","Formulario de tarjeta");
 		model.addAttribute("mensaje","Informacion recivida");
 		try {
 			tarjetaDao.save(tarjeta);
-		} catch (Exception e) {
-			
+		} catch (DataBaseBancoException e) {
+			e.printStackTrace();
+			flash.addFlashAttribute("mensaje", e.getMessage());
 		}
 		status.setComplete();
 		return "redirect:formtarjeta";
-        }	
+	}
+	
+	
 	
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id) {

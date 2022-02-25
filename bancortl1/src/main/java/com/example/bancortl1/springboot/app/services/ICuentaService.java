@@ -6,7 +6,7 @@ import com.example.bancortl1.springboot.app.models.entity.Cuenta;
 
 public interface ICuentaService {
 	
-	public Cuenta getByID(Long id, List<Cuenta> lista);
+	Cuenta getByID(Long id, List<Cuenta> lista);
 
 	
 

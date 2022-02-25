@@ -21,6 +21,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 		return em.createQuery("from Cuenta").getResultList();
 	}
 	@Override
+	@Transactional
 	public void save(Cuenta cuenta) {
 		if (cuenta.getId() != null && cuenta.getId() > 0) {
 			em.merge(cuenta);
@@ -30,12 +31,13 @@ public class CuentaDaoImpl implements ICuentaDao {
 		
 	}
 	@Override
-	public Cuenta findOne(Long id) {
-		
+	@Transactional(readOnly = true)
+	public Cuenta findOne(Long id) {		
 		 return em.find(Cuenta.class, id);
 	}
 	
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		em.remove(findOne(id));
 		

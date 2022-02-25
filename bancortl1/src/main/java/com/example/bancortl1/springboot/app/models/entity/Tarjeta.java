@@ -1,17 +1,16 @@
 package com.example.bancortl1.springboot.app.models.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
-import javax.validation.constraints.NotEmpty;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "tarjetas")
@@ -25,16 +24,16 @@ public class Tarjeta implements Serializable {
 
 
 @Column (name = "numero_tarjeta", nullable = false, length = 16)
-@NotEmpty
+
     private String numeroTarjeta;
 
 @Column (name = "icv", nullable = false,length = 3)
-@NotEmpty
+
 private String ivc;
 
 @Column(name = "vencimiento")
 @Temporal(TemporalType.DATE)
-@DateTimeFormat(pattern = "yyyy-mm-dd")
+@DateTimeFormat(pattern = "yyyy-MM-dd")
 private Date vencimieto;
 
 @JoinColumn(name = "cuenta", referencedColumnName = "id", nullable = false )
@@ -49,11 +48,11 @@ public void setId(Long id) {
 	Id = id;
 }
 
-public String getNumroTarjeta() {
+public String getNumeroTarjeta() {
 	return numeroTarjeta;
 }
 
-public void setNumroTarjeta(String numeroTarjeta) {
+public void setNumeroTarjeta(String numeroTarjeta) {
 	this.numeroTarjeta = numeroTarjeta;
 }
 
@@ -84,6 +83,13 @@ public void setCuenta(Cuenta cuenta) {
 public static long getSerialversionuid() {
 	return serialVersionUID;
 }
+
+public String getNombre() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
 
 
 }
